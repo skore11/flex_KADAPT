@@ -4,7 +4,7 @@ using System.Collections;
 
 public class _NavigatorScript : MonoBehaviour
 {	
-	private NavMeshAgent agent;
+	private UnityEngine.AI.NavMeshAgent agent;
 	private Animator animator;
 	private float angleDiff;
 
@@ -19,7 +19,7 @@ public class _NavigatorScript : MonoBehaviour
 
 	public void Initialize() 
 	{
-		agent = this.GetComponent<NavMeshAgent> ();
+		agent = this.GetComponent<UnityEngine.AI.NavMeshAgent> ();
 		animator = this.GetComponent<Animator> ();
         desiredOrientation = transform.rotation;
 

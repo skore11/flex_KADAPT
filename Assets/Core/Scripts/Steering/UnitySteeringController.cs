@@ -9,7 +9,7 @@ using System.Collections;
 public class UnitySteeringController : SteeringController
 {
     // The navmesh agent attached to us
-    private NavMeshAgent navAgent = null;
+    private UnityEngine.AI.NavMeshAgent navAgent = null;
 	private _NavigatorScript navScript = null;
 
     // Used when we detach from the NavMesh
@@ -66,10 +66,10 @@ public class UnitySteeringController : SteeringController
         //this.Target = transform.position;
 
         //this can't be done in awake, as we can't initialize our nav mesh agent then. We first need to set all parent transforms.
-        this.navAgent = transform.GetComponent<NavMeshAgent>();
+        this.navAgent = transform.GetComponent<UnityEngine.AI.NavMeshAgent>();
         if (this.navAgent == null)
         {
-            this.navAgent = this.gameObject.AddComponent<NavMeshAgent>();
+            this.navAgent = this.gameObject.AddComponent<UnityEngine.AI.NavMeshAgent>();
         }
         this.navAgent.updateRotation = false;
 
@@ -126,9 +126,9 @@ public class UnitySteeringController : SteeringController
 
     public override bool CanReach(Vector3 target)
     {
-        NavMeshPath path = new NavMeshPath();
+        UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
         this.navAgent.CalculatePath(target, path);
-        return (path.status == NavMeshPathStatus.PathComplete);
+        return (path.status == UnityEngine.AI.NavMeshPathStatus.PathComplete);
     }
 
     protected void Detach()
