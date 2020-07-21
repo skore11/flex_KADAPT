@@ -12,14 +12,18 @@ public class MyBehaviorTree : MonoBehaviour
 	public GameObject participant;
     public GameObject participant2;
 
+    public int iteration1;
+    public int iteration2;
+
 	private BehaviorAgent behaviorAgent;
     // Use this for initialization
 
-    public enum iter
-    {
-        rigid = 1,
-        loose = 15
-    };
+    //public enum iter
+    //{
+    //    rigid = 10,
+    //    loose = 15
+    //};
+
 
 	void Start ()
 	{
@@ -45,24 +49,31 @@ public class MyBehaviorTree : MonoBehaviour
         return new Selector(participant2.GetComponent<FlexController>().Node_Melt(x));
     }
 
-    protected Node ST_Iter(iter iter)
-    {
+    //protected Node ST_Iter(iter iter)
+    //{
         
-        foreach (int item in iter.GetValues(typeof(iter)))
-        {
-            return new Selector(participant2.GetComponent<FlexController>().Node_Iter(item));
-            
-        }
-        return new Selector();
+    //    foreach (int item in iter.GetValues(typeof(iter)))
+    //    {
+    //        print(item);
+    //        return new Sequence(participant2.GetComponent<FlexController>().Node_Iter(item)); 
+    //    }
+    //    return new Selector();
+    //}
+
+    protected Node ST_Iter(int iter)
+    {
+
+            return new Selector(participant2.GetComponent<FlexController>().Node_Iter(iter));
     }
 
-	protected Node BuildTreeRoot()
+    protected Node BuildTreeRoot()
 	{
-        iter value =  new iter();
+        //iter value =  new iter();
         Node roaming = new DecoratorLoop(
                         new SequenceShuffle(
                             //this.ST_Melt(meltSelection),
-                            this.ST_Iter(/*value = */value),
+                            this.ST_Iter(/*value = */this.iteration1),
+                            this.ST_Iter(this.iteration2),
 						this.ST_ApproachAndWait(this.wander1),
 						this.ST_ApproachAndWait(this.wander2),
 						this.ST_ApproachAndWait(this.wander3)));
