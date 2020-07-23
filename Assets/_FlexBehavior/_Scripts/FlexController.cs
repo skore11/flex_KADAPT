@@ -27,14 +27,6 @@ public class FlexController : FlexProcessor
             );
     }
 
-    public Node Node_Iter(Val<int> iter)
-    {
-        //iterBool = true;
-        return new LeafInvoke(
-            () => this.flexParams = iter.Value 
-            
-            );
-    }
 
     public override void PostContainerUpdate(FlexSolver solver, FlexContainer cntr, FlexParameters parameters)
     {

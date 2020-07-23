@@ -62,8 +62,10 @@ public class MyBehaviorTree : MonoBehaviour
 
     protected Node ST_Iter(int iter)
     {
-
-            return new Selector(participant2.GetComponent<FlexController>().Node_Iter(iter));
+        FlexController flexController = participant2.GetComponent<FlexController>();
+        return new Selector(new LeafInvoke(
+            () => flexController.flexParams = iter
+        ));
     }
 
     protected Node BuildTreeRoot()
