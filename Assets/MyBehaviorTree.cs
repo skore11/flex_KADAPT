@@ -15,7 +15,10 @@ public class MyBehaviorTree : MonoBehaviour
     public int iteration1;
     public int iteration2;
 
+    public float gravityVal;
+
 	private BehaviorAgent behaviorAgent;
+    private BehaviorAgent behaviorAgent2;
     // Use this for initialization
 
     //public enum iter
@@ -35,13 +38,15 @@ public class MyBehaviorTree : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
+        //behaviorAgent2 = new BehaviorAgent(this.Trial());
+        //BehaviorManager.Instance.Register(behaviorAgent2);
+        //behaviorAgent2.StartBehavior();
 	}
 
 	protected Node ST_ApproachAndWait(Transform target)
 	{
 		Val<Vector3> position = Val.V (() => target.position);
-		return new Sequence( participant.GetComponent<BehaviorMecanim>().Node_GoTo(position), new LeafWait(1000));
+		return new Sequence(participant.GetComponent<BehaviorMecanim>().Node_GoTo(position), new LeafWait(1000));
 	}
 
     protected Node ST_Melt(bool x)
@@ -68,6 +73,19 @@ public class MyBehaviorTree : MonoBehaviour
         ));
     }
 
+    protected Node ST_Jiggle(bool x)
+    {
+        return new Selector(participant2.GetComponent<FlexController>().Node_Jiggle(x));
+    }
+
+    protected Node ST_Gravity(float y_gravity)
+    {
+        FlexController flexController = participant2.GetComponent<FlexController>();
+        return new Selector(new LeafInvoke(
+            () => flexController.gravityY = y_gravity
+            ));
+    }
+
     protected Node BuildTreeRoot()
 	{
         //iter value =  new iter();
@@ -76,9 +94,23 @@ public class MyBehaviorTree : MonoBehaviour
                             //this.ST_Melt(meltSelection),
                             this.ST_Iter(/*value = */this.iteration1),
                             this.ST_Iter(this.iteration2),
+                            this.ST_Jiggle(true),
+                            this.ST_Jiggle(false),
 						this.ST_ApproachAndWait(this.wander1),
 						this.ST_ApproachAndWait(this.wander2),
 						this.ST_ApproachAndWait(this.wander3)));
 		return roaming;
 	}
+
+    protected Node Trial()
+    {
+        Node gravity = new DecoratorLoop(
+                        new Sequence(
+                            this.ST_Gravity(gravityVal),
+                            this.ST_Gravity(-9.8f), new LeafWait(500)
+                            )
+                            );
+        return gravity;
+            
+    }
 }

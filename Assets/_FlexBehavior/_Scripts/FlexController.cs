@@ -8,15 +8,23 @@ public class FlexController : FlexProcessor
 {
     private MeltFlexProcessor melt = null;
 
+    private JiggleFlexProcessor jiggle = null;
+
     public int flexParams;
 
     private bool iterBool;
+
+    public FlexParameters flex_Params;
+
+    public float gravityY;
+
     // Start is called before the first frame update
     void Awake() { this.Initialize(); }
 
     protected void Initialize()
     {
         this.melt = this.GetComponent<MeltFlexProcessor>();
+        this.jiggle = this.GetComponent<JiggleFlexProcessor>();
         //this.flexParams = this.GetComponent<FlexParameters>();
     }
 
@@ -27,11 +35,17 @@ public class FlexController : FlexProcessor
             );
     }
 
-
+    public Node Node_Jiggle(Val<bool> trigger)
+    {
+        return new LeafInvoke(
+            () => this.jiggle.jiggle = trigger.Value
+            );
+    }
     public override void PostContainerUpdate(FlexSolver solver, FlexContainer cntr, FlexParameters parameters)
     {
   
             parameters.m_numIterations = this.flexParams;
+            parameters.m_gravity.y = this.gravityY;
             //iterBool = false;
 
        

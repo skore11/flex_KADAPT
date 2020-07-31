@@ -4,7 +4,7 @@ using uFlex;
 using UnityEngine;
 
 
-public class TrackUnityObjMovement : FlexProcessor {
+public class UnityTrackObjectMovement : FlexProcessor {
     // this needs to be a FlexProcessor, otherwise we have no guarantee that the movement will not be copied to the
     // particles positions in between a flex run, and then it would just be overwritten.
 

@@ -31,6 +31,8 @@ public class LocomotionController
         bool inTurn = state.IsName("Locomotion.TurnOnSpot") || state.IsName("Locomotion.PlantNTurnLeft") || state.IsName("Locomotion.PlantNTurnRight");
         bool inWalkRun = state.IsName("Locomotion.WalkRun");
 
+        //Debug.Log(state);
+
         float speedDampTime = inIdle ? 0 : m_SpeedDampTime;
         float angularSpeedDampTime = inWalkRun || inTransition ? m_AnguarSpeedDampTime : 0;
         float directionDampTime = inTurn || inTransition ? 1000000 : 0;

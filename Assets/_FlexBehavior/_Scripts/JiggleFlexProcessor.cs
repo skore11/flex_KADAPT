@@ -6,6 +6,7 @@ using UnityEngine;
 public class JiggleFlexProcessor : FlexProcessor, IStorable
 {
     private const float MAX_JIGGLE_FACTOR = 20f;
+    public bool jiggle;
     public KeyCode m_key = KeyCode.J;
     private FlexParticles fParticles;
 
@@ -17,7 +18,7 @@ public class JiggleFlexProcessor : FlexProcessor, IStorable
     public override void PostContainerUpdate(FlexSolver solver, FlexContainer cntr, FlexParameters parameters)
     {
         var particles = fParticles.m_particles;
-        if (Input.GetKey(m_key))
+        if (Input.GetKey(m_key) || jiggle)
         {
             for (int pId = 0; pId < fParticles.m_particlesCount; pId++)
             {
