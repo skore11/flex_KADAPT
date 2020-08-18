@@ -38,10 +38,10 @@ public class MyBehaviorTree : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        //behaviorAgent2 = new BehaviorAgent(this.Trial());
-        //BehaviorManager.Instance.Register(behaviorAgent2);
-        //behaviorAgent2.StartBehavior();
-	}
+        behaviorAgent2 = new BehaviorAgent(this.Trial());
+        BehaviorManager.Instance.Register(behaviorAgent2);
+        behaviorAgent2.StartBehavior();
+    }
 
 	protected Node ST_ApproachAndWait(Transform target)
 	{
