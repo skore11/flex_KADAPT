@@ -9,7 +9,7 @@ public sealed class BehaviorAgent : BehaviorObject, IBehaviorUpdate
     /// <summary>
     /// The tree is final and can't be changed
     /// </summary>
-    private readonly Node treeRoot = null;
+    public readonly Node treeRoot = null;
 
     /// <summary>
     /// Block off the empty constructor

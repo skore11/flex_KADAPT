@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using TreeSharpPlus;
+using UnityEngine.UI;
 
 public class MyBehaviorTree : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class MyBehaviorTree : MonoBehaviour
     private BehaviorAgent behaviorAgent2;
     // Use this for initialization
 
+    public Text debugText;
+
+   
     //public enum iter
     //{
     //    rigid = 10,
@@ -33,14 +37,27 @@ public class MyBehaviorTree : MonoBehaviour
 		behaviorAgent = new BehaviorAgent (this.BuildTreeRoot ());
 		BehaviorManager.Instance.Register (behaviorAgent);
 		behaviorAgent.StartBehavior ();
-	}
+
+        //behaviorAgent2 = new BehaviorAgent(this.Trial());
+        //BehaviorManager.Instance.Register(behaviorAgent2);
+        //behaviorAgent2.StartBehavior();
+    }
 	
 	// Update is called once per frame
 	void Update ()
 	{
-        behaviorAgent2 = new BehaviorAgent(this.Trial());
-        BehaviorManager.Instance.Register(behaviorAgent2);
-        behaviorAgent2.StartBehavior();
+        String DebugOutput = "";
+        DebugOutput += Node.PrintTree(behaviorAgent.treeRoot);
+        foreach (Node n in behaviorAgent.treeRoot.Trace())
+        {
+            String hCode = "" + n.GetHashCode();
+            DebugOutput = DebugOutput.Replace(hCode, "<b>" + hCode + "</b>"); 
+        }
+        if (debugText != null)
+        {
+            debugText.text = DebugOutput;
+            Debug.Log(DebugOutput);
+        }
     }
 
 	protected Node ST_ApproachAndWait(Transform target)
@@ -94,8 +111,8 @@ public class MyBehaviorTree : MonoBehaviour
                             //this.ST_Melt(meltSelection),
                             this.ST_Iter(/*value = */this.iteration1),
                             this.ST_Iter(this.iteration2),
-                            this.ST_Jiggle(true),
-                            this.ST_Jiggle(false),
+                            //this.ST_Jiggle(true),
+                            //this.ST_Jiggle(false),
 						this.ST_ApproachAndWait(this.wander1),
 						this.ST_ApproachAndWait(this.wander2),
 						this.ST_ApproachAndWait(this.wander3)));
