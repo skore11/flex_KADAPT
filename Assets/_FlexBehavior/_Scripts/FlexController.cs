@@ -10,6 +10,8 @@ public class FlexController : FlexProcessor
 
     private JiggleFlexProcessor jiggle = null;
 
+    public GetBehaviors getBehavior;
+
     public int flexParams;
 
     private bool iterBool;
@@ -25,6 +27,7 @@ public class FlexController : FlexProcessor
     {
         this.melt = this.GetComponent<MeltFlexProcessor>();
         this.jiggle = this.GetComponent<JiggleFlexProcessor>();
+        this.getBehavior = FindObjectOfType<GetBehaviors>();
         //this.flexParams = this.GetComponent<FlexParameters>();
     }
 
@@ -53,6 +56,10 @@ public class FlexController : FlexProcessor
     // Update is called once per frame
     void Update()
     {
+        if (getBehavior != null)
+        {
+
+        }
         
     }
 }

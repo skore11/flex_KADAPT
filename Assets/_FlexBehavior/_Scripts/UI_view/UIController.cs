@@ -55,38 +55,44 @@ public class UIController : FlexProcessor//need to extend an Interface for a Vie
     {
         solver.m_solverSubSteps = (int)solverSubSteps;
         parameters.m_numIterations = (int)numOfIterations;
-
-        if (m_FlexParticleLocker.picked)
+        if (m_FlexParticleLocker != null)
         {
-            //TODO: check if the labeled behavior already contains a behavior and append to that behavior
-            if (m_createBehavior.labeledBehavior.Count == 0)
+            if (m_FlexParticleLocker.picked)
             {
-                print("No behaviors in Serilazable Map");
-                tempIVD = new SerializableMap<int, Vector3>();
-                tempIVD.Add(m_FlexParticleLocker.pMouseParticleID, m_FlexParticleLocker.pMouseParticlePos);
-                m_createBehavior.labeledBehavior.Add(m_behaviorName.text, tempIVD);
-            }
-            else
-            {
-                print("There are behaviors");
-                foreach (var index in m_createBehavior.labeledBehavior)
+                //TODO: check if the labeled behavior already contains a behavior and append to that behavior
+                if (m_createBehavior.labeledBehavior.Count == 0)
                 {
-                    if (m_behaviorName.text == index.Key)
+                    print("No behaviors in Serilazable Map");
+                    tempIVD = new SerializableMap<int, Vector3>();
+                    tempIVD.Add(m_FlexParticleLocker.pMouseParticleID, m_FlexParticleLocker.pMouseParticlePos);
+                    m_createBehavior.labeledBehavior.Add(m_behaviorName.text, tempIVD);
+                }
+                else
+                {
+                    print("There are behaviors");
+                    foreach (var index in m_createBehavior.labeledBehavior)
                     {
-                        foreach (var behavior in m_createBehavior.labeledBehavior.Values)
+                        if (m_behaviorName.text == index.Key)
                         {
-                            print(behavior.Keys);
-                            behavior.Add(m_FlexParticleLocker.pMouseParticleID, m_FlexParticleLocker.pMouseParticlePos);
-                            //m_createBehavior.labeledBehavior.Add(m_behaviorName.text, behavior);
+                            foreach (var behavior in m_createBehavior.labeledBehavior.Values)
+                            {
+                                print(behavior.Keys);
+                                behavior.Add(m_FlexParticleLocker.pMouseParticleID, m_FlexParticleLocker.pMouseParticlePos);
+                                //m_createBehavior.labeledBehavior.Add(m_behaviorName.text, behavior);
 
+                            }
                         }
+
                     }
 
                 }
-
+                //this.GetComponent<CreateBehavior>().labeledBehavior.Add(this.GetComponent<CreateBehavior>().behaviorName.text, tempIVD);
+                m_FlexParticleLocker.picked = false;
             }
-            //this.GetComponent<CreateBehavior>().labeledBehavior.Add(this.GetComponent<CreateBehavior>().behaviorName.text, tempIVD);
-            m_FlexParticleLocker.picked = false;
+        }
+        else
+        {
+            base.PostContainerUpdate(solver, cntr, parameters);
         }
 
     }

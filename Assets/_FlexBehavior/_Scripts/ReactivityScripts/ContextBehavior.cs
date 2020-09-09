@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-//TODO: on Trigger enter for child, change the position of the box collider on the parent based on tags from trigger collider
-//based on the tag change the position of the box collider accordingly
+
 //TODO: perform solver sub step and iteration changes on solver parameters only on the current flex game object 
 //and not for all flex game objects in the Flex container.
 namespace uFlex
