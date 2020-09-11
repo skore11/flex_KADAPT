@@ -29,6 +29,9 @@ using uFlex;
 
         public InputField behaviorName;
 
+        public FlexAnimation flexAnim;
+
+        public Animator animator;
         
     //private bool once;
         public GetBehaviors getBehaviors;
@@ -75,11 +78,19 @@ using uFlex;
             if (m_UIController.turnOffAnim)
             {
                 flyCamEnable = true;
-                //List<Vector3> templist = null;
-                //Vector3 temp;
-                this.GetComponent<FlexAnimation>().enabled = false;//might have to move this to start to optimize
-                flyCam.enabled = true;
+            //List<Vector3> templist = null;
+            //Vector3 temp;
+            //flexAnim.enabled = false;
+            animator.enabled = false;
+
+            //this.GetComponent<FlexAnimation>().enabled = false;//might have to move this to start to optimize
+
+            flyCam.enabled = true;
+            if (playerController != null)
+            {
                 playerController.enabled = false;
+            }
+                
                 //StartCoroutine(MoveParticle());
                 //int x = this.GetComponent<FlexMouseDrag>().m_mouseParticle;
 
@@ -125,7 +136,9 @@ using uFlex;
             //    {
             //        print(behaviorName.text);
             //    }
-                this.GetComponent<FlexAnimation>().enabled = true;
+            //flexAnim.enabled = true;
+            animator.enabled = true;
+                //this.GetComponent<FlexAnimation>().enabled = true;
             m_UIController.turnOnAnim = false;
           
             }

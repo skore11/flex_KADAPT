@@ -24,7 +24,7 @@ public class MyBehaviorTree : MonoBehaviour
 
     public Text debugText;
 
-
+    public UIController uIController;
     //public enum iter
     //{
     //    rigid = 10,
@@ -104,6 +104,13 @@ public class MyBehaviorTree : MonoBehaviour
             ));
     }
 
+    //protected Node ST_pauseTree()
+    //{
+        
+       
+
+    //}
+
     //protected Node ST_deform()
     //{
     //    FlexController flexController = participant2.GetComponent<FlexController>();
@@ -117,15 +124,17 @@ public class MyBehaviorTree : MonoBehaviour
 	{
         //iter value = new iter();
         Node roaming = new DecoratorLoop(
+                        //new Selector(this.pauseAnim,
                         new SequenceShuffle(
                             //this.ST_Melt(meltSelection),
+                            
                             this.ST_Iter(/*value = */this.iteration1),
                             this.ST_Iter(this.iteration2),
                         //this.ST_Jiggle(true),
                         //this.ST_Jiggle(false),
                         this.ST_ApproachAndWait(this.wander1),
                         this.ST_ApproachAndWait(this.wander2),
-                        this.ST_ApproachAndWait(this.wander3)));
+                        this.ST_ApproachAndWait(this.wander3)));//);
         return roaming;
 
     }
