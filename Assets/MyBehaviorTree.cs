@@ -30,10 +30,12 @@ public class MyBehaviorTree : MonoBehaviour
     //    rigid = 10,
     //    loose = 15
     //};
-
+    private BehaviorUpdater behaviorUpdater;
 
     void Start()
     {
+        behaviorUpdater = FindObjectOfType<BehaviorUpdater>();
+
         behaviorAgent = new BehaviorAgent(this.BuildTreeRoot());
         BehaviorManager.Instance.Register(behaviorAgent);
         behaviorAgent.StartBehavior();
@@ -57,6 +59,11 @@ public class MyBehaviorTree : MonoBehaviour
         {
             debugText.text = DebugOutput;
             Debug.Log(DebugOutput);
+        }
+        //try to turn of behavior updater here and restart when needed!
+        if (uIController.turnOffAnim)
+        {
+            behaviorUpdater.enabled = false;
         }
     }
 
